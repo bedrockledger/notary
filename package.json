@@ -1,0 +1,67 @@
+{
+  "name": "@bedrockcompliance/notary",
+  "version": "0.1.0",
+  "description": "Hash and signature engine for the Bedrock immutable advice ledger — computes and verifies record hashes, chain hashes and ECDSA P-256 signatures.",
+  "license": "Apache-2.0",
+  "author": "Luke Bettridge",
+  "homepage": "https://bedrockcompliance.co.uk/docs/concepts/notary",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bedrockcompliance/notary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bedrockcompliance/notary/issues"
+  },
+  "keywords": [
+    "bedrock",
+    "ledger",
+    "verification",
+    "audit",
+    "immutable",
+    "ecdsa",
+    "p-256",
+    "consumer-duty",
+    "fca",
+    "compliance",
+    "hash-chain",
+    "canonical-json"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "SECURITY.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
+    "lint": "eslint --ext .ts src/",
+    "gen:fixtures": "tsx scripts/gen-fixtures.ts",
+    "prepare": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@vitest/coverage-v8": "^1.2.0",
+    "eslint": "^8.56.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  }
+}

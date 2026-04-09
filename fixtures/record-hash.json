@@ -1,0 +1,102 @@
+{
+  "cases": [
+    {
+      "name": "empty-object",
+      "payload": {},
+      "expected": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "name": "sorted-keys",
+      "payload": {
+        "z": 1,
+        "a": 2,
+        "m": 3
+      },
+      "expected": "ebba85cfdc0a724b6cc327ecc545faeb38b9fe02eca603b430eb872f5cf75370"
+    },
+    {
+      "name": "nested-objects",
+      "payload": {
+        "b": {
+          "d": 1,
+          "c": 2
+        },
+        "a": {
+          "f": 3,
+          "e": 4
+        }
+      },
+      "expected": "60e927ed241e79c792b5c68cacb159b6b81532bce1ebd0eaa6d5354d880b1a6a"
+    },
+    {
+      "name": "array-order-preserved",
+      "payload": {
+        "arr": [
+          3,
+          1,
+          2
+        ]
+      },
+      "expected": "cab5b2405701293d6fae18f8809e9946d87a2720a4cff2b9fcac9dde50528852"
+    },
+    {
+      "name": "unicode-and-emoji",
+      "payload": {
+        "emoji": "🔐",
+        "text": "héllo"
+      },
+      "expected": "c4da1f2e48d0a4e89c9df7fce233202e46f5a3878221b1772f588eb041ea36df"
+    },
+    {
+      "name": "line-and-paragraph-separators-preserved-literally",
+      "payload": {
+        "text": "line1 line2 line3"
+      },
+      "expected": "12fc551d8828193790e046d756a8981f2b217f6eb5c4466b2505d98979a57dea"
+    },
+    {
+      "name": "numbers",
+      "payload": {
+        "zero": 0,
+        "negative": -42,
+        "float": 3.14
+      },
+      "expected": "046d5014f3b23e7b49ba0fbbaf1b340e40eeb1e6284df5efd013b216cf77b5e2"
+    },
+    {
+      "name": "null-value",
+      "payload": {
+        "value": null
+      },
+      "expected": "1c197daef20de3f47eec5e2f735ec6669869d3180cc29f35be4788511e0af0f8"
+    },
+    {
+      "name": "booleans",
+      "payload": {
+        "yes": true,
+        "no": false
+      },
+      "expected": "80a5e568f1553cd56b6e00f49e454f89cb46a7f45098fd493923bdb9f5dc0e9e"
+    },
+    {
+      "name": "realistic-ledger-payload",
+      "payload": {
+        "firmId": "01HW1AAAAA",
+        "sequenceNumber": 1,
+        "eventType": "DOCUMENT_SUBMITTED",
+        "actorId": "01HW2BBBBB",
+        "actorFcaRef": null,
+        "actorName": "Test Firm",
+        "documentHash": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+        "documentMetadata": {
+          "documentReference": "SR-2026-0142",
+          "documentType": "SUITABILITY_REPORT"
+        },
+        "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "timestamp": "2026-04-09T00:00:00.000Z",
+        "reviewJobId": null
+      },
+      "expected": "2102df99e5623bda3aa7abeb83c27717a1a7ab1144f17a4b4e6eb3239e9bf3e6"
+    }
+  ]
+}
