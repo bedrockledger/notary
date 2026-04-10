@@ -34,11 +34,9 @@ function buildChainRecords(count: number): LedgerRecordProjection[] {
       recordHash,
       chainHash,
       previousHash,
-      // The signature/publicKey fields are present on the type but
-      // verifyChain only checks the hash linkage. Use deterministic
-      // placeholders so the fixtures stay byte-stable.
       signature: 'placeholder-signature',
       publicKey: 'placeholder-public-key',
+      payload,
     });
   }
 
@@ -153,6 +151,38 @@ describe('verifyChain', () => {
     const result = verifyChain(records, FIRM_ID);
     expect(result.isValid).toBe(false);
     expect(result.firstInvalidSequenceNumber).toBe(1);
+    expect(result.invalidReason).toBe(ChainInvalidReason.PREVIOUS_HASH_MISMATCH);
+  });
+
+  it('detects tampered payload field', () => {
+    const records = buildChainRecords(5);
+    records[2]!.payload = { ...records[2]!.payload!, documentMetadata: { tampered: true } };
+    const result = verifyChain(records, FIRM_ID);
+    expect(result.isValid).toBe(false);
+    expect(result.firstInvalidSequenceNumber).toBe(3);
+    expect(result.invalidReason).toBe(ChainInvalidReason.HASH_MISMATCH);
+  });
+
+  it('detects tampered actorName in payload', () => {
+    const records = buildChainRecords(3);
+    records[1]!.payload = { ...records[1]!.payload!, actorName: 'Tampered' };
+    const result = verifyChain(records, FIRM_ID);
+    expect(result.isValid).toBe(false);
+    expect(result.firstInvalidSequenceNumber).toBe(2);
+    expect(result.invalidReason).toBe(ChainInvalidReason.HASH_MISMATCH);
+  });
+
+  it('skips record hash recomputation when payload absent', () => {
+    const records = buildChainRecords(3).map(({ payload, ...rest }) => rest);
+    const result = verifyChain(records as LedgerRecordProjection[], FIRM_ID);
+    expect(result.isValid).toBe(true);
+  });
+
+  it('detects previousHash mismatch on projection-only records', () => {
+    const records = buildChainRecords(3).map(({ payload, ...rest }) => rest) as LedgerRecordProjection[];
+    records[1]!.previousHash = sha256('wrong');
+    const result = verifyChain(records, FIRM_ID);
+    expect(result.isValid).toBe(false);
     expect(result.invalidReason).toBe(ChainInvalidReason.PREVIOUS_HASH_MISMATCH);
   });
 });
