@@ -6,9 +6,7 @@
 
 import { canonicalise } from './canonicalise';
 import { sha256 } from './hash';
-
-/** Object payload accepted by {@link computeRecordHash}. */
-type RecordPayload = Record<string, unknown>;
+import type { RecordPayload } from './types';
 
 /**
  * Compute the `recordHash` for a partial ledger record.

@@ -1,6 +1,6 @@
 {
   "name": "@bedrockcompliance/notary",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Hash and signature engine for the Bedrock immutable advice ledger — computes and verifies record hashes, chain hashes and ECDSA P-256 signatures.",
   "license": "Apache-2.0",
   "author": "Luke Bettridge",

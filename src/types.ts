@@ -39,7 +39,17 @@ export interface ChainVerificationResult {
   invalidReason: ChainInvalidReason | null;
 }
 
-/** Minimal projection of a ledger record for verification. */
+/**
+ * Projection of a ledger record for verification.
+ *
+ * The core fields (`id`, `sequenceNumber`, `recordHash`, `chainHash`,
+ * `previousHash`, `signature`, `publicKey`) are always required.
+ *
+ * When `payload` is present, {@link verifyChain} will canonicalise it,
+ * hash it, and compare the result to `recordHash` — detecting
+ * field-level tampering. Without it, only chain-link integrity is
+ * checked.
+ */
 export interface LedgerRecordProjection {
   /** Stable record identifier. */
   id: string;
@@ -58,6 +68,14 @@ export interface LedgerRecordProjection {
   signature: string;
   /** Base64-encoded SPKI DER public key in effect when this record was signed. */
   publicKey: string;
+
+  /**
+   * The record's original payload — every field that was hashed to
+   * produce `recordHash`. When provided, `verifyChain` recomputes
+   * `recordHash` from `canonicalise(payload)` and flags a
+   * `HASH_MISMATCH` if it differs.
+   */
+  payload?: RecordPayload;
 }
 
 /** Minimal projection of a certificate envelope. */
@@ -118,6 +136,9 @@ export interface Signer {
    */
   getPublicKey(): Promise<string>;
 }
+
+/** Object payload accepted by {@link computeRecordHash} and {@link LedgerRecordProjection.payload}. */
+export type RecordPayload = Record<string, unknown>;
 
 /** Genesis hash: `previousHash` for the first record on a chain. */
 export const GENESIS_HASH =
