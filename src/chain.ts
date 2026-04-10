@@ -89,7 +89,12 @@ export function verifyChain(
     const expectedPreviousHash = previousRecord ? previousRecord.chainHash : GENESIS_HASH;
 
     if (record.payload !== undefined) {
-      const recomputed = computeRecordHash(record.payload);
+      let recomputed: string;
+      try {
+        recomputed = computeRecordHash(record.payload);
+      } catch {
+        return failure(records, firmId, verifiedAt, record, ChainInvalidReason.HASH_MISMATCH);
+      }
       if (recomputed !== record.recordHash) {
         return failure(records, firmId, verifiedAt, record, ChainInvalidReason.HASH_MISMATCH);
       }

@@ -185,4 +185,14 @@ describe('verifyChain', () => {
     expect(result.isValid).toBe(false);
     expect(result.invalidReason).toBe(ChainInvalidReason.PREVIOUS_HASH_MISMATCH);
   });
+
+  it('treats malformed payload as HASH_MISMATCH instead of throwing', () => {
+    const records = buildChainRecords(1);
+    const circular = {} as Record<string, unknown>;
+    circular.self = circular;
+    records[0]!.payload = circular;
+    const result = verifyChain(records, FIRM_ID);
+    expect(result.isValid).toBe(false);
+    expect(result.invalidReason).toBe(ChainInvalidReason.HASH_MISMATCH);
+  });
 });

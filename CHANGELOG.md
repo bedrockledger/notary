@@ -9,17 +9,19 @@ package adheres to [Semantic Versioning][semver].
 
 ## [Unreleased]
 
-## [0.1.2] — 2026-04-09
+## [0.1.1] — 2026-04-10
 
-### Changed
+### Added
 
-- Updated README and package description to cover both compute and verify.
-
-## [0.1.1] — 2026-04-09
+- Optional `payload` field on `LedgerRecordProjection` for full record
+  hash verification. When present, `verifyChain` recomputes `recordHash`
+  from the canonical payload and flags `HASH_MISMATCH` if it differs.
+- Malformed payloads produce `HASH_MISMATCH` instead of throwing.
 
 ### Changed
 
 - Publish workflow switched to OIDC trusted publishing (no token).
+- Updated README and package description to cover both compute and verify.
 
 ## [0.1.0] — 2026-04-09
 
