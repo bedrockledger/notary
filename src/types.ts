@@ -75,7 +75,7 @@ export interface LedgerRecordProjection {
    * `recordHash` from `canonicalise(payload)` and flags a
    * `HASH_MISMATCH` if it differs.
    */
-  payload?: Record<string, unknown>;
+  payload?: RecordPayload;
 }
 
 /** Minimal projection of a certificate envelope. */
@@ -136,6 +136,9 @@ export interface Signer {
    */
   getPublicKey(): Promise<string>;
 }
+
+/** Object payload accepted by {@link computeRecordHash} and {@link LedgerRecordProjection.payload}. */
+export type RecordPayload = Record<string, unknown>;
 
 /** Genesis hash: `previousHash` for the first record on a chain. */
 export const GENESIS_HASH =

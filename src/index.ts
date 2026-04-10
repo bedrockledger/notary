@@ -21,5 +21,6 @@ export {
   type ChainVerificationResult,
   type LedgerRecordProjection,
   type SignatureVerificationResult,
+  type RecordPayload,
   type Signer,
 } from './types';
