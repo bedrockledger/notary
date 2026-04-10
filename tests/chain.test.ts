@@ -174,12 +174,12 @@ describe('verifyChain', () => {
 
   it('skips record hash recomputation when payload absent', () => {
     const records = buildChainRecords(3).map(({ payload, ...rest }) => rest);
-    const result = verifyChain(records as LedgerRecordProjection[], FIRM_ID);
+    const result = verifyChain(records, FIRM_ID);
     expect(result.isValid).toBe(true);
   });
 
   it('detects previousHash mismatch on projection-only records', () => {
-    const records = buildChainRecords(3).map(({ payload, ...rest }) => rest) as LedgerRecordProjection[];
+    const records = buildChainRecords(3).map(({ payload, ...rest }) => rest);
     records[1]!.previousHash = sha256('wrong');
     const result = verifyChain(records, FIRM_ID);
     expect(result.isValid).toBe(false);
