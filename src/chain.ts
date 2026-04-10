@@ -40,9 +40,8 @@ export function computeChainHash(recordHash: string, previousHash: string): stri
  * The function walks the records in order and, at every position,
  * checks that:
  *
- *   1. When payload fields are present the recomputed `recordHash` 
- *      matches the stored `recordHash`
- *      (detects field-level tampering).
+ *   1. When `payload` is present, the recomputed `recordHash` matches
+ *      the stored `recordHash` (detects field-level tampering).
  *   2. The sequence number is exactly one greater than the previous
  *      record's (gaps and reorderings are detected).
  *   3. The `previousHash` matches the previous record's `chainHash`
